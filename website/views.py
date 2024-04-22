@@ -1,23 +1,19 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.views import generic
+
+from website.models import Worker
 
 
+@login_required
 def index(request: HttpRequest) -> HttpResponse:
-    return render(request, 'website/base.html')
+    return render(request, 'website/index.html')
 
 
-def my_login_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return render(request, template_name="website/base.html")
-        else:
-            raise Exception('Invalid username or password')
-    else:
-        return render(request, template_name="registration/login.html")
-
-
+class WorkerListView(LoginRequiredMixin, generic.ListView):
+    model = Worker
+    context_object_name = "worker_list"
+    template_name = "website/workers_list.html"
+    paginate_by = 2

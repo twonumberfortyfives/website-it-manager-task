@@ -1,13 +1,9 @@
 from django.urls import path
-from django.contrib.auth import views as auth_views
-
-from website.views import index
+from website.views import index, WorkerListView
 
 urlpatterns = [
     path("index/", index, name="index"),
-    path("accounts/login", auth_views.LoginView.as_view(), name="login"),
-    path("accounts/logout", auth_views.LogoutView.as_view(), name="logout"),
-    
+    path("workers", WorkerListView.as_view(), name="workers-list")
 ]
 
 app_name = "website"

@@ -8,7 +8,8 @@ from website.models import Worker, Position, TaskType, Task
 class WorkerAdmin(UserAdmin):
     list_display = UserAdmin.list_display + ("position",)
     fieldsets = UserAdmin.fieldsets + (("Additional info", {"fields": ("position", )}),)
-    add_fieldsets = UserAdmin.add_fieldsets + (("Additional info", {"fields": ("first_name", "last_name", "position",)}),)
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        ("Additional info", {"fields": ("first_name", "last_name", "position",)}),)
 
 
 @admin.register(Position)

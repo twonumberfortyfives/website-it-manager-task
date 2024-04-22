@@ -1,0 +1,36 @@
+<ul class="sidebar-nav">
+  {% if user.is_authenticated %}
+    <li class="list-group-item">
+      <strong>User: {{ user.username }}</strong>
+    </li>
+    <li class="list-group-item">
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout" class="btn btn-danger">
+      </form>
+    </li>
+  {% else %}
+    <li class="list-group-item">
+      <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Login" class="btn btn-danger">
+      </form>
+    </li>
+  {% endif %}
+  <br>
+
+
+  <!-- Common menu items -->
+  <li class="list-group-item">
+    <a href="{% url '#' %}">Home</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{% url "#" %}">All authors</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{% url "#" %}">All books</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{% url "#" %}">All literary formats</a>
+  </li>
+</ul>

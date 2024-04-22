@@ -19,3 +19,5 @@ def my_login_view(request):
             raise Exception('Invalid username or password')
     else:
         return render(request, template_name="registration/login.html")
+
+

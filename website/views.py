@@ -7,7 +7,7 @@ from django.views import generic
 
 from website import forms
 from website.forms import WorkerSearchForm
-from website.models import Worker
+from website.models import Worker, Position
 
 
 @login_required
@@ -63,3 +63,9 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Worker
     template_name = "website/worker_delete_confirm.html"
     success_url = reverse_lazy("website:workers-list")
+
+
+class PositionListView(LoginRequiredMixin, generic.ListView):
+    model = Position
+    context_object_name = "position_list"
+    template_name = "website/positions_list.html"

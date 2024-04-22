@@ -6,6 +6,7 @@ from website.views import (
     WorkerUpdateView,
     WorkerCreateView,
     WorkerDeleteView,
+    PositionListView,
 )
 
 urlpatterns = [
@@ -15,6 +16,7 @@ urlpatterns = [
     path("workers/<int:pk>", WorkerDetailView.as_view(), name="worker-detail"),
     path("workers/<int:pk>/update", WorkerUpdateView.as_view(), name="worker-update"),
     path("workers/<int:pk>/delete", WorkerDeleteView.as_view(), name="worker-delete"),
+    path("positions/", PositionListView.as_view(), name="positions-list")
 ]
 
 app_name = "website"

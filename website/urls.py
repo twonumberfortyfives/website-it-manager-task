@@ -4,11 +4,13 @@ from website.views import (
     WorkerListView,
     WorkerDetailView,
     WorkerUpdateView,
+    WorkerCreateView
 )
 
 urlpatterns = [
     path("index/", index, name="index"),
     path("workers/", WorkerListView.as_view(), name="workers-list"),
+    path("workers/create", WorkerCreateView.as_view(), name="worker-create"),
     path("workers/<int:pk>", WorkerDetailView.as_view(), name="worker-detail"),
     path("workers/<int:pk>/update", WorkerUpdateView.as_view(), name="worker-update"),
 ]

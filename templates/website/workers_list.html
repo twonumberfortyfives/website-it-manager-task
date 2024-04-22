@@ -1,6 +1,7 @@
 {% extends "website/base.html" %}
 {% include 'includes/sidebar.html' %}
 {% block content %}
+  <h1><a href="{% url 'website:worker-create' %}">create new worker</a></h1>
   {% if worker_list %}
     {% for worker in worker_list %}
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">

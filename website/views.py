@@ -34,3 +34,10 @@ class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("website:worker-detail", kwargs={'pk': self.object.pk})
+
+
+class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Worker
+    template_name = "website/worker_form.html"
+    success_url = reverse_lazy("website:worker-list")
+    form_class = forms.WorkerForm

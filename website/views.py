@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from website import forms
+from website.forms import WorkerSearchForm
 from website.models import Worker
 
 
@@ -19,6 +20,21 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "worker_list"
     template_name = "website/workers_list.html"
     paginate_by = 2
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(WorkerListView, self).get_context_data(**kwargs)
+        username = self.request.GET.get('username', '')
+        context["search_form"] = WorkerSearchForm(
+            initial={"username": username}
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Worker.objects.select_related("position")
+        form = WorkerSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(username__icontains=form.cleaned_data["username"])
+        return queryset
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):

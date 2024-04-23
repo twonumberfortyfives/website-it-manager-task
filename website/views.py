@@ -70,6 +70,7 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
     form_class = forms.PositionSearchForm
     context_object_name = "position_list"
     template_name = "website/positions_list.html"
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PositionListView, self).get_context_data(**kwargs)
@@ -100,7 +101,7 @@ class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "website/positions_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("website:", kwargs={"pk": self.object.id})
+        return reverse_lazy("website:position-detail", kwargs={"pk": self.object.id})
 
 
 class PositionDetailView(LoginRequiredMixin, generic.DetailView):
@@ -108,3 +109,9 @@ class PositionDetailView(LoginRequiredMixin, generic.DetailView):
     form_class = forms.PositionForm
     template_name = "website/positions_detail.html"
     context_object_name = "position_detail"
+
+
+class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Position
+    success_url = reverse_lazy("website:positions-list")
+    template_name = "website/positions_delete_confirm.html"

@@ -67,5 +67,44 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
+    form_class = forms.PositionSearchForm
     context_object_name = "position_list"
     template_name = "website/positions_list.html"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(PositionListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name")
+        context["search_form"] = forms.PositionSearchForm(
+            initial={"name": name}
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Position.objects.all()
+        form = forms.PositionSearchForm(self.request.GET)
+        if form.is_valid():
+            queryset = queryset.filter(name__icontains=form.cleaned_data["name"])
+        return queryset
+
+
+class PositionCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Position
+    success_url = reverse_lazy("website:positions-list")
+    form_class = forms.PositionForm
+    template_name = "website/positions_form.html"
+
+
+class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Position
+    form_class = forms.PositionForm
+    template_name = "website/positions_form.html"
+
+    def get_success_url(self):
+        return reverse_lazy("website:", kwargs={"pk": self.object.id})
+
+
+class PositionDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Position
+    form_class = forms.PositionForm
+    template_name = "website/positions_detail.html"
+    context_object_name = "position_detail"

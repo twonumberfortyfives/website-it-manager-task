@@ -30,6 +30,12 @@
                         <li class="mr-md-4">
                           <i class="zmdi zmdi-time mr-2"></i> Full Time
                         </li>
+                        <li class="ml-auto">
+                          <a class="btn btn-primary" href="{% url 'website:position-update' pk=position.id %}">update</a>
+                        </li>
+                        <li class="ml-auto">
+                          <a class="btn btn-primary" href="{% url 'website:position-detail' pk=position.id %}">details</a>
+                        </li>
                       </ul>
                     </div>
                   </div>

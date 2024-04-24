@@ -27,10 +27,11 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         context["search_form"] = WorkerSearchForm(
             initial={"username": username}
         )
+        context["total_workers_count"] = self.get_queryset().count()
         return context
 
     def get_queryset(self):
-        queryset = Worker.objects.select_related("position")
+        queryset = Worker.objects.select_related("position").all()
         form = WorkerSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(username__icontains=form.cleaned_data["username"])

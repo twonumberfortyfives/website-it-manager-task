@@ -11,13 +11,13 @@
       <div class="col-lg-10 mx-auto">
         <div class="career-search mb-60">
           <div class="filter-result">
-            <h1 class="mb-30 ff-montserrat"><strong>Total positions:</strong> {{ position_list.count }}</h1>
+            <h1 class="mb-30 ff-montserrat"><strong>Total positions:</strong> {{ position_list.count }} <a
+                href="{% url "website:position-create" %}">(create a position)</a></h1>
             <form action="" method="get" class="form-inline">
               {{ search_form|crispy }}
               <input class="btn btn-primary" type="submit" value="Search">
             </form>
             {% if position_list %}
-
               {% for position in position_list %}
                 <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
                   <div class="job-left my-4 d-md-flex align-items-center flex-wrap">

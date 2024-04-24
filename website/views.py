@@ -1,18 +1,16 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
 from website import forms
 from website.forms import WorkerSearchForm
-from website.models import Worker, Position
+from website.models import Worker, Position, Task
 
 
-@login_required
-def index(request: HttpRequest) -> HttpResponse:
-    return render(request, 'website/index.html')
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Task
+    context_object_name = 'task_detail'
+    template_name = 'website/index.html'
 
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):

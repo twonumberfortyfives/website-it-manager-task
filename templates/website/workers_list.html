@@ -12,7 +12,7 @@
         <div class="career-search mb-60">
           <div class="filter-result">
             <h1 class="mb-30 ff-montserrat"><strong>All workers:</strong> {{ total_workers_count }}
-              <a href="{% url 'website:worker-create' %}">(create a worker)</a></h1>
+              <a href="{% url 'website:worker-create' %}"><strong>+</strong></a></h1>
             <br>
             <form action="" method="get" class="form-inline">
               {{ search_form|crispy }}
@@ -25,7 +25,7 @@
                     <div class="card radius-15">
                       <div class="card-body text-center">
                         <div class="p-4 border radius-15">
-                          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" width="110" height="110" class="rounded-circle shadow" alt="">
+                          <img src="https://i0.wp.com/digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png?fit=500%2C500&ssl=1" width="110" height="110" class="rounded-circle shadow" alt="">
                           <h5 class="mb-0 mt-4">{{ worker.first_name }} {{ worker.last_name }}</h5>
                           <p class="mb-2">{{ worker.position }}</p>
                           <div class="list-inline contacts-social mb-3">

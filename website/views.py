@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from website import forms
-from website.forms import WorkerSearchForm
+from website.forms import WorkerSearchForm, TaskForm
 from website.models import Worker, Position, Task
 
 
@@ -17,6 +17,11 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     context_object_name = "task_list"
     template_name = 'website/task_list.html'
+
+
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Task
+    form_class = TaskForm
 
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):

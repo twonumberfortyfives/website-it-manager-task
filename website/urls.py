@@ -12,10 +12,12 @@ from website.views import (
     PositionDeleteView,
     TaskDetailView,
     TaskListView,
+    TaskCreateView,
 )
 
 urlpatterns = [
     path("tasks/", TaskListView.as_view(), name='tasks-list'),
+    path("tasks/create", TaskCreateView.as_view(), name='tasks-create'),
     path("tasks/<int:pk>", TaskDetailView.as_view(), name="tasks-detail"),
     path("workers/", WorkerListView.as_view(), name="workers-list"),
     path("workers/create", WorkerCreateView.as_view(), name="worker-create"),

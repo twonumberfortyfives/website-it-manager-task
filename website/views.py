@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from website import forms
-from website.forms import WorkerSearchForm, TaskForm
+from website.forms import WorkerSearchForm, TaskForm, TaskSearchForm
 from website.models import Worker, Position, Task
 
 
@@ -17,6 +17,22 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     context_object_name = "task_list"
     template_name = 'website/task_list.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TaskListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get('name', '')
+        context['total_tasks_count'] = Task.objects.all().count()
+        context['search_form'] = TaskSearchForm(
+            initial={'name': name}
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.all().prefetch_related("assignees").select_related("task_type")
+        form = TaskSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(name__icontains=form.cleaned_data['name'])
+        return queryset
 
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):

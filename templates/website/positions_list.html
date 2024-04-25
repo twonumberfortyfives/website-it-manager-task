@@ -11,7 +11,7 @@
       <div class="col-lg-10 mx-auto">
         <div class="career-search mb-60">
           <div class="filter-result">
-            <h1 class="mb-30 ff-montserrat"><strong>Total positions:</strong> {{ total_positions_count }} <a
+            <h1 class="mb-30 ff-montserrat">Total positions: {{ total_positions_count }} <a
                 href="{% url "website:position-create" %}"><strong>+</strong></a></h1>
             <form action="" method="get" class="form-inline">
               {{ search_form|crispy }}

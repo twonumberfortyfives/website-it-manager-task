@@ -1,7 +1,63 @@
 {% extends "website/base.html" %}
+{% load crispy_forms_filters %}
 {% include 'includes/sidebar.html' %}
+{% block style %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/task_list.css' %}">
+{% endblock %}
 {% block content %}
-  <h1>Hello</h1>
-  <a href="{% url "website:tasks-create" %}">create</a>
+  <div class="container">
+    <h1>Total tasks in the team: {{ total_tasks_count }} <a
+        href="{% url "website:tasks-create" %}"><strong>+</strong></a></h1>
+    <br>
+    <form action="" method="get" class="form-inline">
+      {{ search_form|crispy }}
+      <input type="submit" value="Search" class="btn btn-primary">
+    </form>
+    {% if task_list %}
+      {% for task in task_list %}
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="card mb-3 card-body">
+              <div class="row align-items-center">
+                <div class="col-auto">
+                  <a href="#!.html">
+                    <img src="https://www.bootdey.com/image/280x280/FF00FF/000000" class="width-90 rounded-3" alt="">
+                  </a>
+                </div>
+                <div class="col">
+                  <div class="overflow-hidden flex-nowrap">
+                    <h6 class="mb-1">
+                      <a href="#!" class="text-reset">{{ task.name }}</a>
+                    </h6>
+                    <span class="text-muted d-block mb-2 small">
+                      Deadline: {{ task.deadline }}
+                    </span>
+                    <div class="row align-items-center">
+                      <div class="col-12">
+                        <div class="row align-items-center g-0">
+                          <div class="col-auto">
+                            <small class="me-2">45%</small>
+                          </div>
+                          <div class="col">
 
+                            <!-- Progress bar -->
+                            <div class="progress bg-tint-success" style="height: 4px;">
+                              <div class="progress-bar bg-success" role="progressbar" style="width: 45%;"
+                                   aria-valuenow="65"
+                                   aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      {% endfor %}
+    {% endif %}
 {% endblock %}

@@ -22,7 +22,7 @@
 
   <!-- Common menu items -->
   <li class="list-group-item">
-    <a href="{% url "website:tasks-detail" pk %}">My tasks</a>
+    <a href="{% url "website:tasks-detail" pk=user.id %}">My tasks</a>
   </li>
   <li class="list-group-item">
     <a href="{% url 'website:workers-list' %}">All workers</a>
@@ -31,6 +31,6 @@
     <a href="{% url 'website:positions-list' %}">All positions</a>
   </li>
   <li class="list-group-item">
-    <a href="#">All literary formats</a>
+    <a href="{% url 'website:tasks-list' %}">All Team's tasks</a>
   </li>
 </ul>

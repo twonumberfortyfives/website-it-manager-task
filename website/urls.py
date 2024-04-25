@@ -11,10 +11,12 @@ from website.views import (
     PositionDetailView,
     PositionDeleteView,
     TaskDetailView,
+    TaskListView,
 )
 
 urlpatterns = [
-    path("tasks/<int:pk>/", TaskDetailView.as_view, name="tasks-detail"),
+    path("tasks/", TaskListView.as_view(), name='tasks-list'),
+    path("tasks/<int:pk>", TaskDetailView.as_view(), name="tasks-detail"),
     path("workers/", WorkerListView.as_view(), name="workers-list"),
     path("workers/create", WorkerCreateView.as_view(), name="worker-create"),
     path("workers/<int:pk>", WorkerDetailView.as_view(), name="worker-detail"),

@@ -1,0 +1,25 @@
+{% extends "website/base.html" %}
+{% load crispy_forms_filters %}
+{% include 'includes/sidebar.html' %}
+{% block style %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/task_type_list.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1>Task Types</h1>
+    <br>
+    <div class="row">
+      <div class="col">
+        <ul class="list-group">
+          {% for task_type in task_type_list %}
+            <li class="list-group-item">
+              <h5>{{ task_type.name }}</h5>
+              <p>{{ task_type.description }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -23,7 +23,7 @@
   <!-- Common menu items -->
   {% if user.id %}
     <li class="list-group-item">
-      <a href="{% url "website:my-page"%}">My tasks</a>
+      <a href="{% url "website:my-page" %}">My tasks</a>
     </li>
   {% else %}
     <li class="list-group-item">
@@ -38,5 +38,8 @@
   </li>
   <li class="list-group-item">
     <a href="{% url 'website:tasks-list' %}">All Team's tasks</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{% url 'website:task-type-list' %}">All task's types</a>
   </li>
 </ul>

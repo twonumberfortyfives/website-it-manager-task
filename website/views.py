@@ -162,6 +162,8 @@ def my_page_url(request: HttpRequest) -> HttpResponse:
 class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     model = TaskType
     form_class = forms.TaskTypeSearchForm
+    context_object_name = "task_type_list"
+    template_name = "website/task_type_list.html"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskTypeListView, self).get_context_data(**kwargs)

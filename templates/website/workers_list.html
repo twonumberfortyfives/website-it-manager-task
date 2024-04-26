@@ -1,6 +1,5 @@
 {% extends "website/base.html" %}
 {% load crispy_forms_filters %}
-{% include 'includes/sidebar.html' %}
 {% load static %}
 {% block style %}
   <link rel="stylesheet" href="{% static "css/workers_list.css" %}">
@@ -28,11 +27,7 @@
                           <img src="https://i0.wp.com/digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png?fit=500%2C500&ssl=1" width="110" height="110" class="rounded-circle shadow" alt="">
                           <h5 class="mb-0 mt-4">{{ worker.first_name }} {{ worker.last_name }}</h5>
                           <p class="mb-2">{{ worker.position }}</p>
-                          <div class="list-inline contacts-social mb-3">
-                            <a href="javascript:;" class="list-inline-item bg-facebook text-white border-0"><i class="bx bxl-facebook"></i></a>
-                            <a href="javascript:;" class="list-inline-item bg-twitter text-white border-0"><i class="bx bxl-twitter"></i></a>
-                            <a href="javascript:;" class="list-inline-item bg-linkedin text-white border-0"><i class="bx bxl-linkedin"></i></a>
-                          </div>
+                          <p class="mb-2">{{ worker.username }}</p>
                           <div class="d-grid"><a href="{% url 'website:worker-detail' pk=worker.id %}" class="btn btn-outline-primary radius-15">Details</a></div>
                         </div>
                       </div>

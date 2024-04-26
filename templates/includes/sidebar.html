@@ -21,9 +21,15 @@
 
 
   <!-- Common menu items -->
-  <li class="list-group-item">
-    <a href="{% url "website:tasks-detail" pk=user.id %}">My tasks</a>
-  </li>
+  {% if user.id %}
+    <li class="list-group-item">
+      <a href="{% url "website:my-page"%}">My tasks</a>
+    </li>
+  {% else %}
+    <li class="list-group-item">
+      <a href="{% url 'login' %}"></a>
+    </li>
+  {% endif %}
   <li class="list-group-item">
     <a href="{% url 'website:workers-list' %}">All workers</a>
   </li>

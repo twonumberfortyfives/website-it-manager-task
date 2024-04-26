@@ -25,6 +25,9 @@ class Worker(AbstractUser):
         verbose_name_plural = "workers"
         ordering = ["id"]
 
+    def __str__(self):
+        return self.username
+
 
 class Task(models.Model):
     PRIORITY_CHOICES = [

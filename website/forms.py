@@ -17,7 +17,7 @@ class WorkerSearchForm(forms.Form):
         label="",
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Search by name"
+                "placeholder": "Search by username"
             }
         )
     )

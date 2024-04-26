@@ -1,4 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpRequest, HttpResponse, request
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -145,3 +147,13 @@ class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Position
     success_url = reverse_lazy("website:positions-list")
     template_name = "website/positions_delete_confirm.html"
+
+
+def my_page_url(request: HttpRequest) -> HttpResponse:
+    my_positions = Position.objects.filter(workers=request.user)
+    my_tasks = Task.objects.filter(assignees=request.user)
+    context = {
+        "my_positions": my_positions,
+        "my_tasks": my_tasks,
+    }
+    return render(request, template_name="website/index.html", context=context)

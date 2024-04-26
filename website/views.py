@@ -11,12 +11,14 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
     context_object_name = 'task_detail'
     template_name = 'website/index.html'
+    success_url = reverse_lazy('website:tasks-list')
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     context_object_name = "task_list"
     template_name = 'website/task_list.html'
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
@@ -38,6 +40,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     form_class = TaskForm
+    success_url = reverse_lazy('website:tasks-list')
 
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):

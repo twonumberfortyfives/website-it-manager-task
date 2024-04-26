@@ -7,6 +7,9 @@ from website_it_manager_task.settings import AUTH_USER_MODEL
 class TaskType(models.Model):
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
 
 class Position(models.Model):
     name = models.CharField(max_length=255)
@@ -25,14 +28,14 @@ class Worker(AbstractUser):
 
 class Task(models.Model):
     PRIORITY_CHOICES = [
-        ('high', 'High'),
         ('urgent', 'Urgent'),
+        ('high', 'High'),
         ('low', 'Low'),
     ]
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
-    deadline = models.DateField()
-    is_completed = models.BooleanField()
+    deadline = models.DateTimeField()
+    is_completed = models.BooleanField(default=False)
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES)
     task_type = models.ForeignKey("TaskType", on_delete=models.CASCADE, related_name="tasks")
     assignees = models.ManyToManyField(AUTH_USER_MODEL, related_name="tasks_assigned")

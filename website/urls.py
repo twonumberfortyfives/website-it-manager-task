@@ -14,6 +14,7 @@ from website.views import (
     TaskDetailView,
     TaskListView,
     TaskCreateView,
+    TaskTypeListView,
 )
 
 urlpatterns = [
@@ -21,6 +22,7 @@ urlpatterns = [
     path("tasks/", TaskListView.as_view(), name='tasks-list'),
     path("tasks/create", TaskCreateView.as_view(), name='tasks-create'),
     path("tasks/<int:pk>", TaskDetailView.as_view(), name="tasks-detail"),
+    path("task-types/", TaskTypeListView.as_view(), name='task-types'),
     path("workers/", WorkerListView.as_view(), name="workers-list"),
     path("workers/create", WorkerCreateView.as_view(), name="worker-create"),
     path("workers/<int:pk>", WorkerDetailView.as_view(), name="worker-detail"),

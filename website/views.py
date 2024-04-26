@@ -6,7 +6,7 @@ from django.views import generic
 
 from website import forms
 from website.forms import WorkerSearchForm, TaskForm, TaskSearchForm
-from website.models import Worker, Position, Task
+from website.models import Worker, Position, Task, TaskType
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
@@ -157,3 +157,23 @@ def my_page_url(request: HttpRequest) -> HttpResponse:
         "my_tasks": my_tasks,
     }
     return render(request, template_name="website/index.html", context=context)
+
+
+class TaskTypeListView(LoginRequiredMixin, generic.ListView):
+    model = TaskType
+    form_class = forms.TaskTypeSearchForm
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TaskTypeListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["search_form"] = forms.TaskTypeSearchForm(
+            initial={"name": name}
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = TaskType.objects.all()
+        form = forms.TaskTypeSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
+        return queryset

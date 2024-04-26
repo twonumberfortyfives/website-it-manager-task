@@ -26,8 +26,9 @@
                         <div class="p-3 radius-15">
                           <img src="https://i0.wp.com/digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png?fit=500%2C500&ssl=1" width="110" height="110" class="rounded-circle shadow" alt="">
                           <h5 class="mb-0 mt-4">{{ worker.first_name }} {{ worker.last_name }}</h5>
-                          <p class="mb-2">{{ worker.position }}</p>
-                          <p class="mb-2">{{ worker.username }}</p>
+                          <br>
+                          <p class="mb-2"><i>Position:</i> <strong>{{ worker.position }}</strong></p>
+                          <p class="mb-2"><i>Username:</i> <strong>{{ worker.username }}</strong></p>
                           <div class="d-grid"><a href="{% url 'website:worker-detail' pk=worker.id %}" class="btn btn-outline-primary radius-15">Details</a></div>
                         </div>
                       </div>

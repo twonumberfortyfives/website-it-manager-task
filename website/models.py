@@ -19,7 +19,7 @@ class Position(models.Model):
 
 
 class Worker(AbstractUser):
-    position = models.ForeignKey("Position", on_delete=models.CASCADE, related_name="workers", null=True, blank=True)
+    position = models.ForeignKey("Position", on_delete=models.CASCADE, related_name="workers")
 
     class Meta:
         verbose_name_plural = "workers"

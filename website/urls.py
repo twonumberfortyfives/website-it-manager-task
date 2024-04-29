@@ -20,7 +20,7 @@ from website.views import (
 )
 
 urlpatterns = [
-    path('my-page/', my_page_url, name="my-page"),
+    path('index/', my_page_url, name="my-page"),
     path("tasks/", TaskListView.as_view(), name='tasks-list'),
     path("tasks/create", TaskCreateView.as_view(), name='tasks-create'),
     path("tasks/<int:pk>", TaskDetailView.as_view(), name="tasks-detail"),

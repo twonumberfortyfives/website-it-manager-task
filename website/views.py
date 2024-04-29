@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.http import HttpRequest, HttpResponse, request
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -47,9 +48,9 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
-    context_object_name = "worker_list"
     template_name = "website/workers_list.html"
     paginate_by = 2
+    context_object_name = "worker_list"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(WorkerListView, self).get_context_data(**kwargs)

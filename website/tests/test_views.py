@@ -123,3 +123,35 @@ class PrivateTaskTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context["task_list"], all_tasks)
         self.assertTemplateUsed(response, "website/task_list.html")
+
+
+class PublicTaskTypeTest(TestCase):
+    def setUp(self) -> None:
+        self.client = Client()
+
+    def test_login_required(self):
+        response = self.client.get(TASK_TYPE_URL)
+        self.assertNotEqual(response.status_code, 200)
+
+
+class PrivateTaskTypeTest(TestCase):
+    def setUp(self) -> None:
+        self.client = Client()
+        position = Position.objects.create(
+            name="Test Position"
+        )
+        user = Worker.objects.create_user(
+            username="username",
+            email="email@gmail.com",
+            position=position,
+            last_name="last_name",
+            first_name="first_name",
+        )
+        self.client.force_login(user)
+
+    def test_get_all_type_tasks_and_template_usage(self):
+        response = self.client.get(TASK_TYPE_URL)
+        all_task_types = TaskType.objects.all()
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context["task_type_list"], all_task_types)
+        self.assertTemplateUsed(response, "website/task_type_list.html")

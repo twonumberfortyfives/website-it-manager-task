@@ -18,9 +18,11 @@
         <div class="col">
           <ul class="list-group">
             {% for task_type in task_type_list %}
-              <li class="list-group-item custom-card">
+              <li class="list-group-item custom-card d-flex justify-content-between align-items-center">
                 <h5>{{ task_type.name }}</h5>
-                <p><a href="{% url 'website:task-type-delete' pk=task_type.id %}" class="btn btn-danger">delete</a></p>
+                <p>
+                  <a href="{% url 'website:task-type-delete' pk=task_type.id %}" class="btn btn-danger">delete</a>
+                </p>
               </li>
             {% endfor %}
           </ul>

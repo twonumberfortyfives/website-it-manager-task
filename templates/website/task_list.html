@@ -58,8 +58,10 @@
                           </div>
                           <div class="col-auto">
                             <div class="btn-group" role="group" aria-label="Task actions">
-                              <a href="{% url 'website:tasks-update' pk=task.id %}" class="btn btn-primary mr-3">Update</a>
-                              <a href="{% url 'website:tasks-delete' pk=task.id %}" class="btn btn-danger">Delete</a>
+                              <p>
+                                <a href="{% url 'website:tasks-update' pk=task.id %}" class="btn btn-outline-primary mr-2">Update</a>
+                                <a href="{% url 'website:tasks-delete' pk=task.id %}" class="btn btn-outline-danger">Delete</a>
+                              </p>
                             </div>
                           </div>
                         </div>

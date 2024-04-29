@@ -17,31 +17,32 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-8">
-        <div class="card mb-3">
+        <div class="card mt-3">
+          <div class="card-header">
+            <h5>User Information</h5>
+          </div>
           <div class="card-body">
             <div class="row mb-3">
-              <div class="col-sm-3">
-                <h6 class="mb-0">Full Name</h6>
+              <div class="col-sm-5">
+                <h6 class="mb-0">Full Name:</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-7 text-secondary">
                 {{ worker_detail.first_name }} {{ worker_detail.last_name }}
               </div>
             </div>
             <div class="row mb-3">
-              <div class="col-sm-3">
-                <h6 class="mb-0">Email</h6>
+              <div class="col-sm-5">
+                <h6 class="mb-0">Email:</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-7 text-secondary">
                 {{ worker_detail.email }}
               </div>
             </div>
             <div class="row mb-3">
-              <div class="col-sm-3">
-                <h6 class="mb-0">Position</h6>
+              <div class="col-sm-5">
+                <h6 class="mb-0">Position:</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-7 text-secondary">
                 {{ worker_detail.position.name }}
               </div>
             </div>
@@ -57,7 +58,9 @@
             </div>
           </div>
         </div>
-        <div class="card">
+      </div>
+      <div class="col-md-8">
+        <div class="card mb-3">
           <div class="card-header">
             <h5>Tasks</h5>
           </div>

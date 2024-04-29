@@ -56,10 +56,11 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy('website:tasks-list')
     template_name = "website/task_list_delete_confirm.html"
 
+
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
     template_name = "website/workers_list.html"
-    paginate_by = 2
+    paginate_by = 6
     context_object_name = "worker_list"
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -160,21 +161,12 @@ class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = "website/positions_delete_confirm.html"
 
 
-def my_page_url(request: HttpRequest) -> HttpResponse:
-    my_positions = Position.objects.filter(workers=request.user)
-    my_tasks = Task.objects.filter(assignees=request.user)
-    context = {
-        "my_positions": my_positions,
-        "my_tasks": my_tasks,
-    }
-    return render(request, template_name="website/index.html", context=context)
-
-
 class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     model = TaskType
     form_class = forms.TaskTypeSearchForm
     context_object_name = "task_type_list"
     template_name = "website/task_type_list.html"
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskTypeListView, self).get_context_data(**kwargs)
@@ -211,3 +203,17 @@ class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = forms.TaskTypeForm
     success_url = reverse_lazy("website:task-type-list")
     template_name = "website/task_type_form.html"
+
+
+def index(request: HttpRequest) -> HttpResponse:
+    if request.method == "GET":
+        user = request.user
+        all_my_tasks = user.tasks_assigned.all()
+
+        search_form = forms.TaskSearchForm(
+            initial={"name":name}
+        )
+        context = {
+            "all_my_tasks": all_my_tasks,
+        }
+        return render(request, "website/index.html", context=context)

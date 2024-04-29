@@ -21,7 +21,8 @@
               <li class="list-group-item custom-card d-flex justify-content-between align-items-center">
                 <h5>{{ task_type.name }}</h5>
                 <p>
-                  <a href="{% url 'website:task-type-delete' pk=task_type.id %}" class="btn btn-danger">delete</a>
+                  <a href="{% url 'website:task-type-update' pk=task_type.id %}" class="btn btn-primary mr-2">update</a>
+                  <a href="{% url 'website:task-type-delete' pk=task_type.id %}" class="btn btn-danger mr-2">delete</a>
                 </p>
               </li>
             {% endfor %}

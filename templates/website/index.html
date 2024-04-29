@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
   <div class="container">
-    <h1>All my tasks: {{ all_my_tasks.count }} <a href="{% url 'website:tasks-create' %}">+</a></h1>
+    <h1>All my tasks: {{ all_my_tasks.count }} <a href="{% url 'website:create-task' %}">+</a></h1>
     <br>
     <form action="" method="get" class="form-inline">
       {{ search_form|crispy }}

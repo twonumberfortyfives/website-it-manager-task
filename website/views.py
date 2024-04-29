@@ -1,11 +1,12 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
 from website import forms
-from website.forms import WorkerSearchForm, TaskForm, TaskSearchForm
+from website.forms import WorkerSearchForm, TaskForm, TaskSearchForm, CreateMyTaskForm
 from website.models import Worker, Position, Task, TaskType
 
 
@@ -205,15 +206,26 @@ class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "website/task_type_form.html"
 
 
+@login_required
 def index(request: HttpRequest) -> HttpResponse:
     if request.method == "GET":
         user = request.user
         all_my_tasks = user.tasks_assigned.all()
-
-        search_form = forms.TaskSearchForm(
-            initial={"name":name}
-        )
         context = {
             "all_my_tasks": all_my_tasks,
         }
         return render(request, "website/index.html", context=context)
+
+
+@login_required
+def create_task_view(request: HttpRequest) -> HttpResponse:
+    if request.method == "POST":
+        form = CreateMyTaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.assignees = request.user
+            task.save()
+            return redirect("website:my-page")
+    else:
+        form = CreateMyTaskForm(initial={"assignees": [request.user.id]})
+    return render(request, "website/create_my_task.html", context={"form": form})

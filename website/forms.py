@@ -95,3 +95,9 @@ class TaskTypeForm(forms.ModelForm):
     class Meta(forms.ModelForm):
         model = TaskType
         fields = "__all__"
+
+
+class CreateMyTaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ("name", "description", "deadline", "priority", "task_type", "assignees")

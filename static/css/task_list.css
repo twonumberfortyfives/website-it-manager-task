@@ -1,5 +1,4 @@
 body {
-    margin-top: 20px;
     background: #ffffff;
 }
 
@@ -17,5 +16,9 @@ body {
 
 a {
     text-decoration: none;
+}
+
+.custom-card {
+  border: none; /* Remove borders from cards with custom-card class */
 }
 

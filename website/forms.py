@@ -6,11 +6,6 @@ from website.models import Worker, Position, Task, TaskType
 
 
 class WorkerForm(forms.ModelForm):
-    position = forms.ModelMultipleChoiceField(
-        queryset=Position.objects.all(),
-        widget=forms.Select,
-        required=True,
-    )
 
     class Meta(UserCreationForm.Meta):
         model = Worker
@@ -96,7 +91,7 @@ class TaskTypeSearchForm(forms.Form):
     )
 
 
-class TaskTypeForm(forms.Form):
-    class Meta(forms.Form):
+class TaskTypeForm(forms.ModelForm):
+    class Meta(forms.ModelForm):
         model = TaskType
         fields = "__all__"

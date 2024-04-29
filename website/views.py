@@ -168,6 +168,7 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskTypeListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
+        context["all_task_types"] = TaskType.objects.all().count()
         context["search_form"] = forms.TaskTypeSearchForm(
             initial={"name": name}
         )
@@ -179,3 +180,16 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
         if form.is_valid():
             return queryset.filter(name__icontains=form.cleaned_data["name"])
         return queryset
+
+
+class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
+    model = TaskType
+    form_class = forms.TaskTypeForm
+    success_url = reverse_lazy("website:task-type-list")
+    template_name = "website/task_type_form.html"
+
+
+class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = TaskType
+    success_url = reverse_lazy("website:task-type-list")
+    template_name = "website/task_type_delete_confirm.html"

@@ -7,19 +7,25 @@
 {% endblock %}
 {% block content %}
   <div class="container">
-    <h1>Task Types</h1>
+    <h1>All task types: {{ all_task_types }} <a href="{% url 'website:task-type-create' %}">+</a></h1>
     <br>
-    <div class="row">
-      <div class="col">
-        <ul class="list-group">
-          {% for task_type in task_type_list %}
-            <li class="list-group-item">
-              <h5>{{ task_type.name }}</h5>
-              <p>{{ task_type.description }}</p>
-            </li>
-          {% endfor %}
-        </ul>
+    <form action="" method="get" class="form-inline">
+      {{ search_form|crispy }}
+      <input type="submit" value="Search" class="btn btn-primary">
+    </form>
+    {% if task_type_list %}
+      <div class="row">
+        <div class="col">
+          <ul class="list-group">
+            {% for task_type in task_type_list %}
+              <li class="list-group-item custom-card">
+                <h5>{{ task_type.name }}</h5>
+                <p><a href="{% url 'website:task-type-delete' pk=task_type.id %}" class="btn btn-danger">delete</a></p>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
-    </div>
+    {% endif %}
   </div>
 {% endblock %}

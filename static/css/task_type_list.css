@@ -1,6 +1,6 @@
 /* Styles specific to the task type list page */
 .container {
-    margin-top: 20px;
+    margin-top: 0;
     background: #ffffff;
 }
 
@@ -21,4 +21,8 @@
 
 a {
     text-decoration: none;
+}
+
+.custom-card {
+  border: none; /* Remove borders from cards with custom-card class */
 }

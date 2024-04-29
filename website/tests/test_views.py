@@ -36,3 +36,4 @@ class PublicWorkerTest(TestCase):
         all_workers = Worker.objects.all()
         self.assertEqual(response.context["total_workers_count"], all_workers.count())
         self.assertQuerysetEqual(response.context["worker_list"], all_workers)
+        self.assertTemplateUsed(response, "website/workers_list.html")

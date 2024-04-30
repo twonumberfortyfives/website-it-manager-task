@@ -17,6 +17,7 @@
               {{ search_form|crispy }}
               <input class="btn btn-primary ml-3" type="submit" value="Search">
             </form>
+            <br>
             {% if worker_list %}
               <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
                 {% for worker in worker_list %}

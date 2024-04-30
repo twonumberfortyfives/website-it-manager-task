@@ -1,6 +1,6 @@
 from django.urls import path
 from website.views import (
-    index,
+    SearchMyTasksView,
     create_task_view,
     WorkerListView,
     WorkerDetailView,
@@ -24,7 +24,7 @@ from website.views import (
 )
 
 urlpatterns = [
-    path('index/', index, name="my-page"),
+    path('index/', SearchMyTasksView.as_view(), name="my-page"),
     path("create-task/", create_task_view, name="create-task"),
     path("tasks/", TaskListView.as_view(), name='tasks-list'),
     path("tasks/create", TaskCreateView.as_view(), name='tasks-create'),

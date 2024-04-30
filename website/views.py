@@ -206,15 +206,30 @@ class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "website/task_type_form.html"
 
 
-@login_required
-def index(request: HttpRequest) -> HttpResponse:
-    if request.method == "GET":
-        user = request.user
-        all_my_tasks = user.tasks_assigned.all()
-        context = {
-            "all_my_tasks": all_my_tasks,
-        }
-        return render(request, "website/index.html", context=context)
+class SearchMyTasksView(LoginRequiredMixin, generic.ListView):
+    model = Task
+    form_class = forms.MyTaskSearchForm
+    template_name = "website/index.html"
+    context_object_name = "all_my_tasks"
+    paginate_by = 2
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        name = self.request.GET.get("name", "")
+        if name:
+            queryset = queryset.filter(assignees=self.request.user, name__icontains=name)
+        else:
+            queryset = queryset.filter(assignees=self.request.user)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["total_my_tasks"] = Task.objects.filter(assignees=self.request.user).count()
+        context["search_form"] = forms.MyTaskSearchForm(
+            initial={"name": name}
+        )
+        return context
 
 
 @login_required
@@ -223,8 +238,9 @@ def create_task_view(request: HttpRequest) -> HttpResponse:
         form = CreateMyTaskForm(request.POST)
         if form.is_valid():
             task = form.save(commit=False)
-            task.assignees = request.user
             task.save()
+            task.assignees.add(request.user)  # Add the current user to the assignees ManyToManyField
+            form.save_m2m()  # Save the ManyToManyField data
             return redirect("website:my-page")
     else:
         form = CreateMyTaskForm(initial={"assignees": [request.user.id]})

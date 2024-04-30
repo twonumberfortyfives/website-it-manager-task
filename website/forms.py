@@ -6,7 +6,6 @@ from website.models import Worker, Position, Task, TaskType
 
 
 class WorkerForm(forms.ModelForm):
-
     class Meta(UserCreationForm.Meta):
         model = Worker
         fields = ("position", "first_name", "last_name", "email", "username")
@@ -98,6 +97,28 @@ class TaskTypeForm(forms.ModelForm):
 
 
 class CreateMyTaskForm(forms.ModelForm):
+    assignees = forms.ModelMultipleChoiceField(
+        queryset=Worker.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True
+    )
+
     class Meta:
         model = Task
         fields = ("name", "description", "deadline", "priority", "task_type", "assignees")
+        widgets = {
+            'deadline': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+
+
+class MyTaskSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search by name"
+            }
+        )
+    )

@@ -21,10 +21,11 @@ from website.views import (
     TaskTypeListView,
     TaskTypeCreateView,
     TaskTypeDeleteView,
-    TaskTypeUpdateView,
+    TaskTypeUpdateView, register,
 )
 
 urlpatterns = [
+    path("registration/", register, name="register"),
     path("my-profile", get_my_profile, name="my-profile"),
     path('index/', SearchMyTasksView.as_view(), name="my-page"),
     path("create-task/", create_task_view, name="create-task"),

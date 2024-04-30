@@ -1,3 +1,4 @@
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
@@ -6,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from website import forms
-from website.forms import WorkerSearchForm, TaskForm, TaskSearchForm, CreateMyTaskForm
+from website.forms import WorkerSearchForm, TaskForm, TaskSearchForm, CreateMyTaskForm, WorkerForm, RegistrationForm
 from website.models import Worker, Position, Task, TaskType
 
 
@@ -250,3 +251,15 @@ def create_task_view(request: HttpRequest) -> HttpResponse:
 def get_my_profile(request: HttpRequest) -> HttpResponse:
     if request.method == "GET":
         return render(request, "website/my_profile.html")
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('login')
+    else:
+        form = RegistrationForm()
+    return render(request, 'registration/registration.html', {'form': form})

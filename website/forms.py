@@ -8,13 +8,7 @@ from website.models import Worker, Position, Task, TaskType
 class WorkerForm(forms.ModelForm):
     class Meta(UserCreationForm.Meta):
         model = Worker
-        fields = ("position", "first_name", "last_name", "email", "username")
-
-    def clean_position(self):
-        position = self.cleaned_data.get('position')
-        if not position:
-            raise forms.ValidationError("Please select a position.")
-        return position
+        fields = ("position", "first_name", "last_name", "email", "username", "password")
 
 
 class WorkerSearchForm(forms.Form):
@@ -122,3 +116,9 @@ class MyTaskSearchForm(forms.Form):
             }
         )
     )
+
+
+class RegistrationForm(UserCreationForm):
+    class Meta:
+        model = Worker
+        fields = ['username', 'email', 'first_name', 'last_name']

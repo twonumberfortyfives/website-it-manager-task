@@ -1,7 +1,7 @@
 <ul class="sidebar-nav">
   {% if user.is_authenticated %}
     <li class="list-group-item user-info">
-      <a href="{% url 'website:my-page' %}" class="nav-link">
+      <a href="{% url 'website:my-profile' %}" class="nav-link">
         <strong>User: {{ user.username }}</strong>
       </a>
     </li>

@@ -245,3 +245,8 @@ def create_task_view(request: HttpRequest) -> HttpResponse:
     else:
         form = CreateMyTaskForm(initial={"assignees": [request.user.id]})
     return render(request, "website/create_my_task.html", context={"form": form})
+
+
+def get_my_profile(request: HttpRequest) -> HttpResponse:
+    if request.method == "GET":
+        return render(request, "website/my_profile.html")

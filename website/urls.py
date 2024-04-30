@@ -1,5 +1,6 @@
 from django.urls import path
 from website.views import (
+    get_my_profile,
     SearchMyTasksView,
     create_task_view,
     WorkerListView,
@@ -24,6 +25,7 @@ from website.views import (
 )
 
 urlpatterns = [
+    path("my-profile", get_my_profile, name="my-profile"),
     path('index/', SearchMyTasksView.as_view(), name="my-page"),
     path("create-task/", create_task_view, name="create-task"),
     path("tasks/", TaskListView.as_view(), name='tasks-list'),

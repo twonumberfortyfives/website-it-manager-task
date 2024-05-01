@@ -22,9 +22,7 @@ class PublicWorkerTest(TestCase):
 class PrivateWorkerTest(TestCase):
     def setUp(self):
         self.client = Client()
-        position = Position.objects.create(
-            name="Test Position"
-        )
+        position = Position.objects.create(name="Test Position")
 
         user = Worker.objects.create_user(
             username="username",
@@ -56,9 +54,7 @@ class PublicPositionTest(TestCase):
 class PrivatePositionTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
-        position = Position.objects.create(
-            name="Test Position"
-        )
+        position = Position.objects.create(name="Test Position")
 
         user = Worker.objects.create_user(
             username="username",
@@ -90,12 +86,8 @@ class PrivateTaskTest(TestCase):
     def setUp(self):
         self.client = Client()
         deadline_date = "2024-05-10"
-        task_type = TaskType.objects.create(
-            name="Test Task"
-        )
-        position = Position.objects.create(
-            name="Test Position"
-        )
+        task_type = TaskType.objects.create(name="Test Task")
+        position = Position.objects.create(name="Test Position")
 
         user = Worker.objects.create_user(
             username="username",
@@ -137,9 +129,7 @@ class PublicTaskTypeTest(TestCase):
 class PrivateTaskTypeTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
-        position = Position.objects.create(
-            name="Test Position"
-        )
+        position = Position.objects.create(name="Test Position")
         user = Worker.objects.create_user(
             username="username",
             email="email@gmail.com",

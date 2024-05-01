@@ -7,55 +7,62 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from website import forms
-from website.forms import WorkerSearchForm, TaskForm, TaskSearchForm, CreateMyTaskForm, WorkerForm, RegistrationForm
+from website.forms import (
+    WorkerSearchForm,
+    TaskForm,
+    TaskSearchForm,
+    CreateMyTaskForm,
+    WorkerForm,
+    RegistrationForm,
+)
 from website.models import Worker, Position, Task, TaskType
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
-    context_object_name = 'task_detail'
-    template_name = 'website/index.html'
-    success_url = reverse_lazy('website:tasks-list')
+    context_object_name = "task_detail"
+    template_name = "website/index.html"
+    success_url = reverse_lazy("website:tasks-list")
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     context_object_name = "task_list"
-    template_name = 'website/task_list.html'
-    paginate_by = 3
+    template_name = "website/task_list.html"
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
-        name = self.request.GET.get('name', '')
-        context['total_tasks_count'] = Task.objects.all().count()
-        context['search_form'] = TaskSearchForm(
-            initial={'name': name}
-        )
+        name = self.request.GET.get("name", "")
+        context["total_tasks_count"] = Task.objects.all().count()
+        context["search_form"] = TaskSearchForm(initial={"name": name})
         return context
 
     def get_queryset(self):
-        queryset = Task.objects.all().prefetch_related("assignees").select_related("task_type")
+        queryset = (
+            Task.objects.all().prefetch_related("assignees").select_related("task_type")
+        )
         form = TaskSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(name__icontains=form.cleaned_data['name'])
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
         return queryset
 
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     form_class = TaskForm
-    success_url = reverse_lazy('website:tasks-list')
+    success_url = reverse_lazy("website:tasks-list")
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     form_class = TaskForm
-    success_url = reverse_lazy('website:tasks-list')
+    success_url = reverse_lazy("website:tasks-list")
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
-    success_url = reverse_lazy('website:tasks-list')
+    success_url = reverse_lazy("website:tasks-list")
     template_name = "website/task_list_delete_confirm.html"
 
 
@@ -67,10 +74,8 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(WorkerListView, self).get_context_data(**kwargs)
-        username = self.request.GET.get('username', '')
-        context["search_form"] = WorkerSearchForm(
-            initial={"username": username}
-        )
+        username = self.request.GET.get("username", "")
+        context["search_form"] = WorkerSearchForm(initial={"username": username})
         context["total_workers_count"] = self.get_queryset().count()
         return context
 
@@ -94,7 +99,7 @@ class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = forms.WorkerForm
 
     def get_success_url(self):
-        return reverse_lazy("website:worker-detail", kwargs={'pk': self.object.pk})
+        return reverse_lazy("website:worker-detail", kwargs={"pk": self.object.pk})
 
 
 class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -108,15 +113,13 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
     form_class = forms.PositionSearchForm
     context_object_name = "position_list"
     template_name = "website/positions_list.html"
-    paginate_by = 3
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PositionListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name")
         context["total_positions_count"] = self.get_queryset().count()
-        context["search_form"] = forms.PositionSearchForm(
-            initial={"name": name}
-        )
+        context["search_form"] = forms.PositionSearchForm(initial={"name": name})
         return context
 
     def get_queryset(self):
@@ -167,9 +170,7 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
         context = super(TaskTypeListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
         context["all_task_types"] = TaskType.objects.all().count()
-        context["search_form"] = forms.TaskTypeSearchForm(
-            initial={"name": name}
-        )
+        context["search_form"] = forms.TaskTypeSearchForm(initial={"name": name})
         return context
 
     def get_queryset(self):
@@ -205,13 +206,14 @@ class SearchMyTasksView(LoginRequiredMixin, generic.ListView):
     form_class = forms.MyTaskSearchForm
     template_name = "website/index.html"
     context_object_name = "all_my_tasks"
-    paginate_by = 2
 
     def get_queryset(self):
         queryset = super().get_queryset()
         name = self.request.GET.get("name", "")
         if name:
-            queryset = queryset.filter(assignees=self.request.user, name__icontains=name)
+            queryset = queryset.filter(
+                assignees=self.request.user, name__icontains=name
+            )
         else:
             queryset = queryset.filter(assignees=self.request.user)
         return queryset
@@ -219,26 +221,26 @@ class SearchMyTasksView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
-        context["total_my_tasks"] = Task.objects.filter(assignees=self.request.user).count()
-        context["search_form"] = forms.MyTaskSearchForm(
-            initial={"name": name}
-        )
+        context["total_my_tasks"] = Task.objects.filter(
+            assignees=self.request.user
+        ).count()
+        context["search_form"] = forms.MyTaskSearchForm(initial={"name": name})
         return context
 
 
 @login_required
 def worker_create_view(request: HttpRequest) -> HttpResponse:
-    if request.method == 'POST':
+    if request.method == "POST":
         form = WorkerForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)  # Don't save to database yet
-            password = form.cleaned_data['password']  # Get password from form
+            password = form.cleaned_data["password"]  # Get password from form
             user.set_password(password)  # Hash the password
             user.save()  # Save user to database
-            return redirect('website:workers-list')
+            return redirect("website:workers-list")
     else:
         form = WorkerForm()
-    return render(request, 'website/worker_form.html', {'form': form})
+    return render(request, "website/worker_form.html", {"form": form})
 
 
 def get_my_profile(request: HttpRequest) -> HttpResponse:
@@ -246,13 +248,30 @@ def get_my_profile(request: HttpRequest) -> HttpResponse:
         return render(request, "website/my_profile.html")
 
 
+@login_required
+def create_task_view(request: HttpRequest) -> HttpResponse:
+    if request.method == "POST":
+        form = CreateMyTaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.save()
+            task.assignees.add(
+                request.user
+            )  # Add the current user to the assignees ManyToManyField
+            form.save_m2m()  # Save the ManyToManyField data
+            return redirect("website:my-page")
+    else:
+        form = CreateMyTaskForm(initial={"assignees": [request.user.id]})
+    return render(request, "website/create_my_task.html", context={"form": form})
+
+
 def register(request: HttpRequest) -> HttpResponse:
-    if request.method == 'POST':
+    if request.method == "POST":
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('login')
+            return redirect("login")
     else:
         form = RegistrationForm()
-    return render(request, 'registration/registration.html', {'form': form})
+    return render(request, "registration/registration.html", {"form": form})

@@ -17,8 +17,6 @@ class FormTest(TestCase):
             "first_name": "firstname",
             "last_name": "lastname",
         }
-        form = WorkerForm(
-            data=form_data
-        )
+        form = WorkerForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data, form_data)

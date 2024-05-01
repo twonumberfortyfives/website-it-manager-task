@@ -115,7 +115,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-LOGIN_REDIRECT_URL = '/index/'
+LOGIN_REDIRECT_URL = "/index/"
 
 INTERNAL_IPS = [
     "127.0.0.1",

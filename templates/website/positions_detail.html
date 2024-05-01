@@ -2,7 +2,7 @@
 {% include 'includes/sidebar.html' %}
 {% block content %}
 <div class="container">
-  <h1>Workers with Position: {{ position_name }}</h1>
+  <h1>Workers with this position: {{ position_name }}</h1>
   <br>
   {% if position_detail.workers.all %}
     <div class="row">
@@ -20,7 +20,7 @@
       </div>
     </div>
   {% else %}
-    <p>No workers found for this position.</p>
+    <p>No workers found with this position.</p>
   {% endif %}
 </div>
 {% endblock %}

@@ -1,0 +1,46 @@
+<ul class="sidebar-nav">
+  {% if user.is_authenticated %}
+    <li class="list-group-item user-info">
+      <a href="{% url 'website:my-profile' %}" class="nav-link">
+        <strong>User: {{ user.username }}</strong>
+      </a>
+    </li>
+    <li class="list-group-item">
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-block">Logout</button>
+      </form>
+    </li>
+  {% else %}
+    <li class="list-group-item">
+      <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+      </form>
+    </li>
+  {% endif %}
+  <br>
+
+  <!-- Common menu items -->
+  {% if user.id %}
+    <li class="list-group-item">
+      <a href="{% url "website:my-page" %}" class="nav-link">My tasks</a>
+    </li>
+  {% else %}
+    <li class="list-group-item">
+      <a href="{% url 'login' %}" class="nav-link">Login</a>
+    </li>
+  {% endif %}
+  <li class="list-group-item">
+    <a href="{% url 'website:workers-list' %}" class="nav-link">All workers</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{% url 'website:positions-list' %}" class="nav-link">All positions</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{% url 'website:tasks-list' %}" class="nav-link">All Team's tasks</a>
+  </li>
+  <li class="list-group-item">
+    <a href="{% url 'website:task-type-list' %}" class="nav-link">All task's types</a>
+  </li>
+</ul>

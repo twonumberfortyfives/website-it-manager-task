@@ -1,0 +1,39 @@
+{% extends "website/base.html" %}
+{% load crispy_forms_filters %}
+{% include 'includes/sidebar.html' %}
+{% block style %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/positions_list.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1>All Positions: {{ total_positions_count }} <a href="{% url 'website:position-create' %}">+</a></h1>
+    <br>
+    <form action="" method="get" class="form-inline">
+      {{ search_form|crispy }}
+      <input type="submit" value="Search" class="btn btn-primary ml-3">
+    </form>
+    <br>
+    {% if position_list %}
+      <div class="row">
+        <div class="col">
+          <ul class="list-group">
+            {% for position in position_list %}
+              <li class="list-group-item custom-card d-flex justify-content-between align-items-center">
+                <h5>{{ position.name }}</h5>
+                <p>
+                  <a href="{% url 'website:position-detail' pk=position.id %}" class="btn btn-outline-secondary mr-2">assignees</a>
+                  <a href="{% url 'website:position-update' pk=position.id %}" class="btn btn-outline-primary mr-2">update</a>
+                  <a href="{% url 'website:position-delete' pk=position.id %}" class="btn btn-outline-danger mr-2">delete</a>
+                </p>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% else %}
+      <br>
+      <p>No positions found</p>
+    {% endif %}
+  </div>
+{% endblock %}

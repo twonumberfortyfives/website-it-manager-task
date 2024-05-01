@@ -1,0 +1,30 @@
+{% extends "website/base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block style %}
+  <link rel="stylesheet" href="{% static "css/profile_page.css" %}">
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="profile-info mt-5">
+          <div class="card border-0 rounded-20 shadow-lg">
+            <div class="card-body text-center">
+              <div class="profile-picture mb-4">
+                <img src="https://i0.wp.com/digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png?fit=500%2C500&ssl=1" width="150" height="150" class="rounded-circle shadow" alt="Profile Picture">
+              </div>
+              <h2 class="profile-name mb-3">{{ user.username }}</h2>
+              <p class="profile-email mb-2"><strong>Email:</strong> {{ user.email }}</p>
+              <p class="profile-first-name mb-2"><strong>First Name:</strong> {{ user.first_name }}</p>
+              <p class="profile-last-name mb-2"><strong>Last Name:</strong> {{ user.last_name }}</p>
+              <div class="profile-action mt-4">
+                <a href="{% url 'website:worker-update' pk=user.id %}" class="btn btn-primary">Edit Profile</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

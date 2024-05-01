@@ -1,0 +1,47 @@
+{% extends "website/base.html" %}
+{% load crispy_forms_filters %}
+{% include 'includes/sidebar.html' %}
+{% block style %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/task_list.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1>All my tasks: {{ total_my_tasks }} <a href="{% url 'website:create-task' %}">+</a></h1>
+    <br>
+    <form action="" method="get" class="form-inline">
+      {{ search_form|crispy }}
+      <input type="submit" value="Search" class="btn btn-primary ml-3">
+    </form>
+    {% if all_my_tasks %}
+      <div class="row">
+        <div class="col">
+          <ul class="list-group">
+            {% for task in all_my_tasks %}
+              <li class="list-group-item custom-card">
+                <div class="row">
+                  <div class="col-md-8">
+                    <h5>{{ task.name }}</h5>
+                    <p class="mb-1">{{ task.description }}</p>
+                    <p class="text-muted mb-1"><strong>Deadline:</strong> {{ task.deadline }}</p>
+                    <p class="text-muted mb-1"><strong>Priority:</strong> {{ task.priority }}</p>
+                    <p class="text-muted mb-1"><strong>Task Type:</strong> {{ task.task_type }}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="d-flex justify-content-end">
+                      <a href="{% url 'website:tasks-update' pk=task.id %}" class="btn btn-outline-primary mr-2">Update</a>
+                      <a href="{% url 'website:tasks-delete' pk=task.id %}" class="btn btn-outline-danger">Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% else %}
+      <br>
+      <p>You don't have any task.</p>
+    {% endif %}
+  </div>
+{% endblock %}

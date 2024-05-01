@@ -1,0 +1,29 @@
+/* Reset some default styles */
+body {
+    background: #ffffff; /* Change background color to white */
+}
+
+/* Card styles */
+.card {
+    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+}
+
+/* Image width */
+.width-90 {
+    width: 90px !important;
+}
+
+/* Rounded corners */
+.rounded-3 {
+    border-radius: 0.5rem !important;
+}
+
+/* Remove underlines from links */
+a {
+    text-decoration: none;
+}
+
+/* Custom card styles */
+.custom-card {
+    border: none; /* Remove borders from cards with custom-card class */
+}

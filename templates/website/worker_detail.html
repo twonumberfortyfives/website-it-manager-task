@@ -1,0 +1,89 @@
+{% extends "website/base.html" %}
+{% include "includes/sidebar.html" %}
+{% block content %}
+<div class="container">
+  <div class="main-body">
+    <div class="row gutters-sm">
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-center">
+              <img src="https://i0.wp.com/digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png?fit=500%2C500&ssl=1" alt="Admin" class="rounded-circle" width="150">
+              <div class="mt-3">
+                <h4>{{ worker_detail.first_name }} {{ worker_detail.last_name }}</h4>
+                <p class="text-secondary">{{ worker_detail.position }}</p>
+                <p class="text-muted font-size-sm">{{ worker_detail.email }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-3">
+          <div class="card-header">
+            <h5>User Information</h5>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-sm-5">
+                <h6 class="mb-0">Full Name:</h6>
+              </div>
+              <div class="col-sm-7 text-secondary">
+                {{ worker_detail.first_name }} {{ worker_detail.last_name }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-5">
+                <h6 class="mb-0">Email:</h6>
+              </div>
+              <div class="col-sm-7 text-secondary">
+                {{ worker_detail.email }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-5">
+                <h6 class="mb-0">Position:</h6>
+              </div>
+              <div class="col-sm-7 text-secondary">
+                {{ worker_detail.position.name }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <a class="btn btn-info mr-2" href="{% url 'website:worker-update' pk=worker_detail.id %}">
+                  Edit
+                </a>
+                <a class="btn btn-danger" href="{% url 'website:worker-delete' pk=worker_detail.id %}">
+                  Delete Worker
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5>Tasks</h5>
+          </div>
+          <div class="card-body">
+            {% if worker_detail.tasks_assigned.all %}
+            <ul class="list-group">
+              {% for task in worker_detail.tasks_assigned.all %}
+              <li class="list-group-item">
+                <h6>{{ task.name }}</h6>
+                <p class="text-muted mb-0">{{ task.description }}</p>
+                <p class="text-muted mb-0"><strong>Deadline:</strong> {{ task.deadline }}</p>
+                <p class="text-muted mb-0"><strong>Priority:</strong> {{ task.priority }}</p>
+                <p class="text-muted mb-0"><strong>Task Type:</strong> {{ task.task_type }}</p>
+              </li>
+              {% endfor %}
+            </ul>
+            {% else %}
+            <p>No tasks found.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

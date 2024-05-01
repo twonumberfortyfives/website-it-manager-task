@@ -1,0 +1,28 @@
+/* Styles specific to the task type list page */
+.container {
+    margin-top: 0;
+    background: #ffffff;
+}
+
+.list-group-item {
+    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 0.5rem;
+}
+
+.list-group-item h5 {
+    margin-bottom: 10px;
+}
+
+.list-group-item p {
+    margin-bottom: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.custom-card {
+  border: none; /* Remove borders from cards with custom-card class */
+}

@@ -1,0 +1,26 @@
+{% extends "website/base.html" %}
+{% include 'includes/sidebar.html' %}
+{% block content %}
+<div class="container">
+  <h1>Workers with this position: {{ position_name }}</h1>
+  <br>
+  {% if position_detail.workers.all %}
+    <div class="row">
+      <div class="col">
+        <ul class="list-group">
+          {% for worker in position_detail.workers.all %}
+            <li class="list-group-item custom-card d-flex justify-content-between align-items-center">
+              <h5>{{ worker.first_name }} {{ worker.last_name }} ({{ worker.username }})</h5>
+              <p>
+                <a href="{% url 'website:worker-detail' pk=worker.id %}" class="btn btn-outline-secondary mr-2">details</a>
+              </p>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% else %}
+    <p>No workers found with this position.</p>
+  {% endif %}
+</div>
+{% endblock %}

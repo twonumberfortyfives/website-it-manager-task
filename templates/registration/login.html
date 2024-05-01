@@ -1,0 +1,32 @@
+{% extends "website/base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0 rounded-lg">
+        <div class="card-body text-center">
+          <h2 class="mb-4">Login</h2>
+          <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% if form.errors %}
+              <p style="color: red">Invalid credentials</p>
+            {% endif %}
+            <div class="form-floating mb-3">
+              {{ form.username|as_crispy_field }}
+            </div>
+            <div class="form-floating mb-3">
+              {{ form.password|as_crispy_field }}
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p></p>
+            <a href="{% url 'website:register' %}">click here to register</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

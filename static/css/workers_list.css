@@ -1,0 +1,57 @@
+body {
+    background: #ffffff; /* Изменить цвет фона на белый */
+}
+
+.career-form {
+    background-color: #4e63d7;
+    border-radius: 5px;
+    padding: 0 16px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.65), 0 2px 6px 0 rgba(0, 0, 0, 0.54); /* Применить тень только к этому контейнеру */
+}
+
+
+.radius-15 {
+    border-radius: 15px;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid rgba(0, 0, 0, 0);
+    border-radius: .25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+}
+
+.list-inline-item:not(:last-child) {
+    margin-right: .5rem;
+}
+
+.contacts-social a {
+    font-size: 16px;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    background: #ffffff;
+    border: 1px solid #eeecec;
+    text-align: center;
+    border-radius: 50%;
+    color: #2b2a2a;
+}
+
+.bg-facebook {
+    background-color: #3b5998 !important;
+}
+
+.bg-twitter {
+    background-color: #55acee !important;
+}
+
+.bg-linkedin {
+    background-color: #0976b4 !important;
+}

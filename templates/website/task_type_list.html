@@ -1,0 +1,38 @@
+{% extends "website/base.html" %}
+{% load crispy_forms_filters %}
+{% include 'includes/sidebar.html' %}
+{% block style %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/task_type_list.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1>All task types: {{ all_task_types }} <a href="{% url 'website:task-type-create' %}">+</a></h1>
+    <br>
+    <form action="" method="get" class="form-inline">
+      {{ search_form|crispy }}
+      <input type="submit" value="Search" class="btn btn-primary ml-3">
+    </form>
+    <br>
+    {% if task_type_list %}
+      <div class="row">
+        <div class="col">
+          <ul class="list-group">
+            {% for task_type in task_type_list %}
+              <li class="list-group-item custom-card d-flex justify-content-between align-items-center">
+                <h5>{{ task_type.name }}</h5>
+                <p>
+                  <a href="{% url 'website:task-type-update' pk=task_type.id %}" class="btn btn-outline-primary radius-15 mr-2">update</a>
+                  <a href="{% url 'website:task-type-delete' pk=task_type.id %}" class="btn btn-outline-danger radius-15 mr-2">delete</a>
+                </p>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% else %}
+      <br>
+      <p>No task types found</p>
+    {% endif %}
+  </div>
+{% endblock %}

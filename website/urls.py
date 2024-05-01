@@ -1,12 +1,12 @@
 from django.urls import path
 from website.views import (
     get_my_profile,
+    register,
     SearchMyTasksView,
-    create_task_view,
+    worker_create_view,
     WorkerListView,
     WorkerDetailView,
     WorkerUpdateView,
-    WorkerCreateView,
     WorkerDeleteView,
     PositionListView,
     PositionCreateView,
@@ -21,14 +21,14 @@ from website.views import (
     TaskTypeListView,
     TaskTypeCreateView,
     TaskTypeDeleteView,
-    TaskTypeUpdateView, register,
+    TaskTypeUpdateView,
 )
 
 urlpatterns = [
     path("registration/", register, name="register"),
     path("my-profile", get_my_profile, name="my-profile"),
     path('index/', SearchMyTasksView.as_view(), name="my-page"),
-    path("create-task/", create_task_view, name="create-task"),
+    path("create-task/", worker_create_view, name="create-task"),
     path("tasks/", TaskListView.as_view(), name='tasks-list'),
     path("tasks/create", TaskCreateView.as_view(), name='tasks-create'),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name='tasks-update'),
@@ -39,7 +39,7 @@ urlpatterns = [
     path("task-types/<int:pk>/delete/", TaskTypeDeleteView.as_view(), name='task-type-delete'),
     path("task-types/<int:pk>/update/", TaskTypeUpdateView.as_view(), name="task-type-update"),
     path("workers/", WorkerListView.as_view(), name="workers-list"),
-    path("workers/create", WorkerCreateView.as_view(), name="worker-create"),
+    path("workers/create", worker_create_view, name="worker-create"),
     path("workers/<int:pk>", WorkerDetailView.as_view(), name="worker-detail"),
     path("workers/<int:pk>/update", WorkerUpdateView.as_view(), name="worker-update"),
     path("workers/<int:pk>/delete", WorkerDeleteView.as_view(), name="worker-delete"),

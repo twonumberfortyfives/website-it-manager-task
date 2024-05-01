@@ -97,13 +97,6 @@ class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy("website:worker-detail", kwargs={'pk': self.object.pk})
 
 
-class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Worker
-    template_name = "website/worker_form.html"
-    success_url = reverse_lazy("website:workers-list")
-    form_class = forms.WorkerForm
-
-
 class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Worker
     template_name = "website/worker_delete_confirm.html"
@@ -234,18 +227,18 @@ class SearchMyTasksView(LoginRequiredMixin, generic.ListView):
 
 
 @login_required
-def create_task_view(request: HttpRequest) -> HttpResponse:
-    if request.method == "POST":
-        form = CreateMyTaskForm(request.POST)
+def worker_create_view(request: HttpRequest) -> HttpResponse:
+    if request.method == 'POST':
+        form = WorkerForm(request.POST)
         if form.is_valid():
-            task = form.save(commit=False)
-            task.save()
-            task.assignees.add(request.user)  # Add the current user to the assignees ManyToManyField
-            form.save_m2m()  # Save the ManyToManyField data
-            return redirect("website:my-page")
+            user = form.save(commit=False)  # Don't save to database yet
+            password = form.cleaned_data['password']  # Get password from form
+            user.set_password(password)  # Hash the password
+            user.save()  # Save user to database
+            return redirect('website:workers-list')
     else:
-        form = CreateMyTaskForm(initial={"assignees": [request.user.id]})
-    return render(request, "website/create_my_task.html", context={"form": form})
+        form = WorkerForm()
+    return render(request, 'website/worker_form.html', {'form': form})
 
 
 def get_my_profile(request: HttpRequest) -> HttpResponse:
@@ -253,7 +246,7 @@ def get_my_profile(request: HttpRequest) -> HttpResponse:
         return render(request, "website/my_profile.html")
 
 
-def register(request):
+def register(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():

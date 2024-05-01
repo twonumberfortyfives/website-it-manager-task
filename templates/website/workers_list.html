@@ -28,7 +28,7 @@
                 {% endif %}
                 <p>{{ worker.username }}</p>
                 <p><strong>Position:</strong> {{ worker.position }}</p>
-                <p><strong>Username:</strong> {{ worker.username }}</p>
+                <p><strong>Email:</strong> {{ worker.email }}</p>
                 {% if worker.id == user.id %}
                   <a href="{% url 'website:my-profile' %}" class="btn btn-outline-primary">Details</a>
                 {% else %}

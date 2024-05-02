@@ -40,7 +40,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         queryset = (
-            Task.objects.all().prefetch_related("assignees").select_related("task_type")
+            Task.objects.prefetch_related("assignees").select_related("task_type")
         )
         form = TaskSearchForm(self.request.GET)
         if form.is_valid():
@@ -80,7 +80,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = Worker.objects.select_related("position").all()
+        queryset = Worker.objects.select_related("position")
         form = WorkerSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(username__icontains=form.cleaned_data["username"])

@@ -14,6 +14,7 @@
       {{ search_form|crispy }}
       <input type="submit" value="Search" class="btn btn-primary ml-3">
     </form>
+    <br>
     {% if task_list %}
       {% for task in task_list %}
         <div class="row">

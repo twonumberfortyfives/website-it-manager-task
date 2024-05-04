@@ -28,7 +28,7 @@ from website.views import (
 urlpatterns = [
     path("registration/", register, name="register"),
     path("my-profile/", get_my_profile, name="my-profile"),
-    path("index/", SearchMyTasksView.as_view(), name="my-page"),
+    path("", SearchMyTasksView.as_view(), name="my-page"),
     path("create-task/", create_task_view, name="create-task"),
     path("tasks/", TaskListView.as_view(), name="tasks-list"),
     path("tasks/create/", TaskCreateView.as_view(), name="tasks-create"),

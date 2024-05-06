@@ -7,8 +7,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from mysite import forms
-from mysite.forms import (
+from manager_task import forms
+from manager_task.forms import (
     WorkerSearchForm,
     TaskForm,
     TaskSearchForm,
@@ -16,7 +16,7 @@ from mysite.forms import (
     WorkerForm,
     RegistrationForm,
 )
-from mysite.models import Worker, Position, Task, TaskType
+from manager_task.models import Worker, Position, Task, TaskType
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):

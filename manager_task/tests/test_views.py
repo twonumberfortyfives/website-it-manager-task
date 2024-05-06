@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.test import TestCase, Client
 
-from mysite.models import Worker, Position, Task, TaskType
+from manager_task.models import Worker, Position, Task, TaskType
 
 TASK_URL = reverse("website:tasks-list")
 WORKER_URL = reverse("website:workers-list")
@@ -39,7 +39,7 @@ class PrivateWorkerTest(TestCase):
         all_workers = Worker.objects.all()
         self.assertEqual(response.context["total_workers_count"], all_workers.count())
         self.assertQuerysetEqual(response.context["worker_list"], all_workers)
-        self.assertTemplateUsed(response, "mysite/workers_list.html")
+        self.assertTemplateUsed(response, "manager_task/workers_list.html")
 
 
 class PublicPositionTest(TestCase):
@@ -69,7 +69,7 @@ class PrivatePositionTest(TestCase):
         response = self.client.get(POSITION_URL)
         all_positions = Position.objects.all().order_by("id")
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "mysite/positions_list.html")
+        self.assertTemplateUsed(response, "manager_task/positions_list.html")
         self.assertQuerysetEqual(response.context["position_list"], all_positions)
 
 
@@ -114,7 +114,7 @@ class PrivateTaskTest(TestCase):
         all_tasks = Task.objects.all()
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context["task_list"], all_tasks)
-        self.assertTemplateUsed(response, "mysite/task_list.html")
+        self.assertTemplateUsed(response, "manager_task/task_list.html")
 
 
 class PublicTaskTypeTest(TestCase):
@@ -144,4 +144,4 @@ class PrivateTaskTypeTest(TestCase):
         all_task_types = TaskType.objects.all()
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context["task_type_list"], all_task_types)
-        self.assertTemplateUsed(response, "mysite/task_type_list.html")
+        self.assertTemplateUsed(response, "manager_task/task_type_list.html")

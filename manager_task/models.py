@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from website_it_manager_task.settings import AUTH_USER_MODEL
+from mysite.settings import AUTH_USER_MODEL
 
 
 class TaskType(models.Model):

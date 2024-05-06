@@ -1,74 +1,26 @@
-from django.urls import path
-from mysite.views import (
-    get_my_profile,
-    register,
-    create_task_view,
-    SearchMyTasksView,
-    worker_create_view,
-    WorkerListView,
-    WorkerDetailView,
-    WorkerUpdateView,
-    WorkerDeleteView,
-    PositionListView,
-    PositionCreateView,
-    PositionUpdateView,
-    PositionDetailView,
-    PositionDeleteView,
-    TaskDetailView,
-    TaskListView,
-    TaskCreateView,
-    TaskUpdateView,
-    TaskDeleteView,
-    TaskTypeListView,
-    TaskTypeCreateView,
-    TaskTypeDeleteView,
-    TaskTypeUpdateView,
-)
+"""
+URL configuration for mysite project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/5.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    path("registration/", register, name="register"),
-    path("my-profile/", get_my_profile, name="my-profile"),
-    path("", SearchMyTasksView.as_view(), name="my-page"),
-    path("create-task/", create_task_view, name="create-task"),
-    path("tasks/", TaskListView.as_view(), name="tasks-list"),
-    path("tasks/create/", TaskCreateView.as_view(), name="tasks-create"),
-    path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="tasks-update"),
-    path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="tasks-delete"),
-    path("tasks/<int:pk>", TaskDetailView.as_view(), name="tasks-detail"),
-    path("task-types/", TaskTypeListView.as_view(), name="task-type-list"),
-    path("task-types/create/", TaskTypeCreateView.as_view(), name="task-type-create"),
-    path(
-        "task-types/<int:pk>/delete/",
-        TaskTypeDeleteView.as_view(),
-        name="task-type-delete",
-    ),
-    path(
-        "task-types/<int:pk>/update/",
-        TaskTypeUpdateView.as_view(),
-        name="task-type-update",
-    ),
-    path("workers/", WorkerListView.as_view(), name="workers-list"),
-    path("workers/create/", worker_create_view, name="worker-create"),
-    path("workers/<int:pk>/", WorkerDetailView.as_view(), name="worker-detail"),
-    path("workers/<int:pk>/update/", WorkerUpdateView.as_view(), name="worker-update"),
-    path("workers/<int:pk>/delete/", WorkerDeleteView.as_view(), name="worker-delete"),
-    path("positions/", PositionListView.as_view(), name="positions-list"),
-    path("positions/create/", PositionCreateView.as_view(), name="position-create"),
-    path(
-        "positions/<int:pk>/update/",
-        PositionUpdateView.as_view(),
-        name="position-update",
-    ),
-    path(
-        "positions/<int:pk>/detail/",
-        PositionDetailView.as_view(),
-        name="position-detail",
-    ),
-    path(
-        "positions/<int:pk>/delete/",
-        PositionDeleteView.as_view(),
-        name="position-delete",
-    ),
+    path("admin/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path('__debug__/', include('debug_toolbar.urls')),
+    path("", include("manager_task.urls")),
 ]
-
-app_name = "mysite"

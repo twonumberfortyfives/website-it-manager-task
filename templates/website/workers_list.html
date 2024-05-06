@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
   <div class="container">
-    <h1>All workers: {{ total_workers_count }} <a href="{% url 'website:worker-create' %}"><strong>+</strong></a></h1>
+    <h1>All workers: {{ total_workers_count }} <a href="{% url 'manager_task:worker-create' %}"><strong>+</strong></a></h1>
     <br>
     <form action="" method="get" class="form-inline">
       {{ search_form|crispy }}
@@ -30,9 +30,9 @@
                 <p><strong>Position:</strong> {{ worker.position }}</p>
                 <p><strong>Email:</strong> {{ worker.email }}</p>
                 {% if worker.id == user.id %}
-                  <a href="{% url 'website:my-profile' %}" class="btn btn-outline-primary">Details</a>
+                  <a href="{% url 'manager_task:my-profile' %}" class="btn btn-outline-primary">Details</a>
                 {% else %}
-                  <a href="{% url 'website:worker-detail' pk=worker.id %}" class="btn btn-outline-primary">Details</a>
+                  <a href="{% url 'manager_task:worker-detail' pk=worker.id %}" class="btn btn-outline-primary">Details</a>
                 {% endif %}
               </div>
             </div>

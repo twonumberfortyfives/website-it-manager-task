@@ -19,7 +19,7 @@
               <p class="profile-first-name mb-2"><strong>First Name:</strong> {{ user.first_name }}</p>
               <p class="profile-last-name mb-2"><strong>Last Name:</strong> {{ user.last_name }}</p>
               <div class="profile-action mt-4">
-                <a href="{% url 'website:worker-update' pk=user.id %}" class="btn btn-primary">Edit Profile</a>
+                <a href="{% url 'manager_task:worker-update' pk=user.id %}" class="btn btn-primary">Edit Profile</a>
               </div>
             </div>
           </div>

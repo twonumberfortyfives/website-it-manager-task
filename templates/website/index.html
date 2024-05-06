@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
   <div class="container">
-    <h1>All my tasks: {{ total_my_tasks }} <a href="{% url 'website:create-task' %}">+</a></h1>
+    <h1>All my tasks: {{ total_my_tasks }} <a href="{% url 'manager_task:create-task' %}">+</a></h1>
     <br>
     <form action="" method="get" class="form-inline">
       {{ search_form|crispy }}
@@ -30,8 +30,8 @@
                   </div>
                   <div class="col-md-4">
                     <div class="d-flex justify-content-end">
-                      <a href="{% url 'website:tasks-update' pk=task.id %}" class="btn btn-outline-primary mr-2">Update</a>
-                      <a href="{% url 'website:tasks-delete' pk=task.id %}" class="btn btn-outline-danger">Delete</a>
+                      <a href="{% url 'manager_task:tasks-update' pk=task.id %}" class="btn btn-outline-primary mr-2">Update</a>
+                      <a href="{% url 'manager_task:tasks-delete' pk=task.id %}" class="btn btn-outline-danger">Delete</a>
                     </div>
                   </div>
                 </div>

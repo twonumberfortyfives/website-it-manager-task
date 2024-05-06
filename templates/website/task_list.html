@@ -8,7 +8,7 @@
 {% block content %}
   <div class="container">
     <h1>Total tasks in the team: {{ total_tasks_count }} <a
-        href="{% url "website:tasks-create" %}"><strong>+</strong></a></h1>
+        href="{% url "manager_task:tasks-create" %}"><strong>+</strong></a></h1>
     <br>
     <form action="" method="get" class="form-inline">
       {{ search_form|crispy }}
@@ -22,7 +22,7 @@
             <div class="card mb-3 card-body custom-card">
               <div class="row align-items-center">
                 <div class="col-auto">
-                  <a href="{% url 'website:tasks-detail' pk=task.id %}">
+                  <a href="{% url 'manager_task:tasks-detail' pk=task.id %}">
                     <img src="https://www.bootdey.com/image/280x280/FF00FF/000000" class="width-90 rounded-3" alt="">
                   </a>
                 </div>
@@ -45,7 +45,7 @@
                         Assigned by:
                       </i>
                       {% for assignee in task.assignees.all %}
-                        <a href="{% url 'website:worker-detail' pk=assignee.id %}">
+                        <a href="{% url 'manager_task:worker-detail' pk=assignee.id %}">
                           {{ assignee.username }}
                           {% if not forloop.last %}, {% endif %}
                         </a>
@@ -60,8 +60,8 @@
                           <div class="col-auto">
                             <div class="btn-group" role="group" aria-label="Task actions">
                               <p>
-                                <a href="{% url 'website:tasks-update' pk=task.id %}" class="btn btn-outline-primary mr-2">Update</a>
-                                <a href="{% url 'website:tasks-delete' pk=task.id %}" class="btn btn-outline-danger">Delete</a>
+                                <a href="{% url 'manager_task:tasks-update' pk=task.id %}" class="btn btn-outline-primary mr-2">Update</a>
+                                <a href="{% url 'manager_task:tasks-delete' pk=task.id %}" class="btn btn-outline-danger">Delete</a>
                               </p>
                             </div>
                           </div>

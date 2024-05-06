@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
   <div class="container">
-    <h1>All task types: {{ all_task_types }} <a href="{% url 'website:task-type-create' %}">+</a></h1>
+    <h1>All task types: {{ all_task_types }} <a href="{% url 'manager_task:task-type-create' %}">+</a></h1>
     <br>
     <form action="" method="get" class="form-inline">
       {{ search_form|crispy }}
@@ -22,8 +22,8 @@
               <li class="list-group-item custom-card d-flex justify-content-between align-items-center">
                 <h5>{{ task_type.name }}</h5>
                 <p>
-                  <a href="{% url 'website:task-type-update' pk=task_type.id %}" class="btn btn-outline-primary radius-15 mr-2">update</a>
-                  <a href="{% url 'website:task-type-delete' pk=task_type.id %}" class="btn btn-outline-danger radius-15 mr-2">delete</a>
+                  <a href="{% url 'manager_task:task-type-update' pk=task_type.id %}" class="btn btn-outline-primary radius-15 mr-2">update</a>
+                  <a href="{% url 'manager_task:task-type-delete' pk=task_type.id %}" class="btn btn-outline-danger radius-15 mr-2">delete</a>
                 </p>
               </li>
             {% endfor %}

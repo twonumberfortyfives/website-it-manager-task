@@ -1,7 +1,7 @@
 <ul class="sidebar-nav">
   {% if user.is_authenticated %}
     <li class="list-group-item user-info">
-      <a href="{% url 'website:my-profile' %}" class="nav-link">
+      <a href="{% url 'manager_task:my-profile' %}" class="nav-link">
         <strong>User: {{ user.username }}</strong>
       </a>
     </li>
@@ -24,7 +24,7 @@
   <!-- Common menu items -->
   {% if user.id %}
     <li class="list-group-item">
-      <a href="{% url "website:my-page" %}" class="nav-link">My tasks</a>
+      <a href="{% url "manager_task:my-page" %}" class="nav-link">My tasks</a>
     </li>
   {% else %}
     <li class="list-group-item">
@@ -32,15 +32,15 @@
     </li>
   {% endif %}
   <li class="list-group-item">
-    <a href="{% url 'website:workers-list' %}" class="nav-link">All workers</a>
+    <a href="{% url 'manager_task:workers-list' %}" class="nav-link">All workers</a>
   </li>
   <li class="list-group-item">
-    <a href="{% url 'website:positions-list' %}" class="nav-link">All positions</a>
+    <a href="{% url 'manager_task:positions-list' %}" class="nav-link">All positions</a>
   </li>
   <li class="list-group-item">
-    <a href="{% url 'website:tasks-list' %}" class="nav-link">All Team's tasks</a>
+    <a href="{% url 'manager_task:tasks-list' %}" class="nav-link">All Team's tasks</a>
   </li>
   <li class="list-group-item">
-    <a href="{% url 'website:task-type-list' %}" class="nav-link">All task's types</a>
+    <a href="{% url 'manager_task:task-type-list' %}" class="nav-link">All task's types</a>
   </li>
 </ul>

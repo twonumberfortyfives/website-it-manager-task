@@ -4,7 +4,7 @@
   <h1>Are you sure that you want to delete this task?</h1>
   <br>
   <br>
-  <form action="{% url "website:tasks-delete" pk=task.id %}" method="post">
+  <form action="{% url "manager_task:tasks-delete" pk=task.id %}" method="post">
     {% csrf_token %}
     <input type="submit" name="Yes, I'm sure" class="btn btn-danger">
   </form>

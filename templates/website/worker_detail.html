@@ -48,10 +48,10 @@
             </div>
             <div class="row">
               <div class="col-sm-12">
-                <a class="btn btn-info mr-2" href="{% url 'website:worker-update' pk=worker_detail.id %}">
+                <a class="btn btn-info mr-2" href="{% url 'manager_task:worker-update' pk=worker_detail.id %}">
                   Edit
                 </a>
-                <a class="btn btn-danger" href="{% url 'website:worker-delete' pk=worker_detail.id %}">
+                <a class="btn btn-danger" href="{% url 'manager_task:worker-delete' pk=worker_detail.id %}">
                   Delete Worker
                 </a>
               </div>

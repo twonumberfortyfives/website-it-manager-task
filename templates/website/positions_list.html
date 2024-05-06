@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
   <div class="container">
-    <h1>All Positions: {{ total_positions_count }} <a href="{% url 'website:position-create' %}">+</a></h1>
+    <h1>All Positions: {{ total_positions_count }} <a href="{% url 'manager_task:position-create' %}">+</a></h1>
     <br>
     <form action="" method="get" class="form-inline">
       {{ search_form|crispy }}
@@ -22,9 +22,9 @@
               <li class="list-group-item custom-card d-flex justify-content-between align-items-center">
                 <h5>{{ position.name }}</h5>
                 <p>
-                  <a href="{% url 'website:position-detail' pk=position.id %}" class="btn btn-outline-secondary mr-2">assignees</a>
-                  <a href="{% url 'website:position-update' pk=position.id %}" class="btn btn-outline-primary mr-2">update</a>
-                  <a href="{% url 'website:position-delete' pk=position.id %}" class="btn btn-outline-danger mr-2">delete</a>
+                  <a href="{% url 'manager_task:position-detail' pk=position.id %}" class="btn btn-outline-secondary mr-2">assignees</a>
+                  <a href="{% url 'manager_task:position-update' pk=position.id %}" class="btn btn-outline-primary mr-2">update</a>
+                  <a href="{% url 'manager_task:position-delete' pk=position.id %}" class="btn btn-outline-danger mr-2">delete</a>
                 </p>
               </li>
             {% endfor %}

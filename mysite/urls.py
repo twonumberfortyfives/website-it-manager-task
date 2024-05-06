@@ -1,5 +1,5 @@
 from django.urls import path
-from website.views import (
+from mysite.views import (
     get_my_profile,
     register,
     create_task_view,
@@ -71,4 +71,4 @@ urlpatterns = [
     ),
 ]
 
-app_name = "website"
+app_name = "mysite"

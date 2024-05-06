@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("website", "0002_remove_worker_worker_groups_and_more"),
+        ("mysite", "0002_remove_worker_worker_groups_and_more"),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name="workers",
-                to="website.position",
+                to="mysite.position",
             ),
         ),
     ]

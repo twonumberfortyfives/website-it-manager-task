@@ -166,7 +166,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="workers",
-                        to="website.position",
+                        to="mysite.position",
                     ),
                 ),
             ],
@@ -216,7 +216,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="tasks",
-                        to="website.tasktype",
+                        to="mysite.tasktype",
                     ),
                 ),
             ],

@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from website.models import TaskType, Position, Worker, Task
+from mysite.models import TaskType, Position, Worker, Task
 
 
 class TestModels(TestCase):

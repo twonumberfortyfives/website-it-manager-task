@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("website", "0003_alter_worker_position"),
+        ("mysite", "0003_alter_worker_position"),
     ]
 
     operations = [

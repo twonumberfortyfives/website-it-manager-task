@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "website",
+    "mysite",
     "crispy_forms",
     "crispy_bootstrap4",
     "debug_toolbar",
@@ -135,7 +135,7 @@ INTERNAL_IPS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "website.Worker"
+AUTH_USER_MODEL = "mysite.Worker"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 

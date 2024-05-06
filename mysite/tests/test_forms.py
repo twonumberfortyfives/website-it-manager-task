@@ -1,6 +1,6 @@
 from django.test import TestCase
-from website.forms import WorkerForm
-from website.models import Position
+from mysite.forms import WorkerForm
+from mysite.models import Position
 
 
 class FormTest(TestCase):

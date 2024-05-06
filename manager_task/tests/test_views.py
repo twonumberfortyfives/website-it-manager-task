@@ -1,13 +1,12 @@
-from django.contrib.auth.models import User
 from django.urls import reverse
 from django.test import TestCase, Client
 
 from manager_task.models import Worker, Position, Task, TaskType
 
-TASK_URL = reverse("website:tasks-list")
-WORKER_URL = reverse("website:workers-list")
-TASK_TYPE_URL = reverse("website:task-type-list")
-POSITION_URL = reverse("website:positions-list")
+TASK_URL = reverse("manager_task:tasks-list")
+WORKER_URL = reverse("manager_task:workers-list")
+TASK_TYPE_URL = reverse("manager_task:task-type-list")
+POSITION_URL = reverse("manager_task:positions-list")
 
 
 class PublicWorkerTest(TestCase):

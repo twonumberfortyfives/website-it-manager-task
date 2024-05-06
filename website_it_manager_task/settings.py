@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ["8000", "localhost"]
+ALLOWED_HOSTS = ["8000", "localhost", "127.0.0.1"]
 
 # Application definition
 
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "website",
     "crispy_forms",
     "crispy_bootstrap4",
-    "debug_toolbar"
+    "debug_toolbar",
+
 ]
 
 MIDDLEWARE = [
@@ -88,6 +89,7 @@ DATABASES = {
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES["default"].update(db_from_env)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

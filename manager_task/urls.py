@@ -23,6 +23,7 @@ from manager_task.views import (
     TaskTypeCreateView,
     TaskTypeDeleteView,
     TaskTypeUpdateView,
+    get_latitude_longitude,
 )
 
 urlpatterns = [
@@ -69,6 +70,11 @@ urlpatterns = [
         PositionDeleteView.as_view(),
         name="position-delete",
     ),
+    path(
+        "get-location/",
+        get_latitude_longitude,
+        name="get-location",
+    )
 ]
 
 app_name = "manager_task"

@@ -6,6 +6,9 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
+import requests
+from ipware import get_client_ip
+
 
 from manager_task import forms
 from manager_task.forms import (
@@ -278,3 +281,22 @@ def register(request: HttpRequest) -> HttpResponse:
     else:
         form = RegistrationForm()
     return render(request, "registration/registration.html", {"form": form})
+
+
+def get_location_from_ip(ip_address):
+    url = f"https://freeipapi.com/api/json/{ip_address}"
+    response = requests.get(url)
+    data = response.json()
+    latitude = data['latitude']
+    longitude = data['longitude']
+    return latitude, longitude
+
+
+def get_latitude_longitude(request: HttpRequest) -> HttpResponse:
+    if request.method == "GET":
+        client_ip, r = get_client_ip(request)
+        latitude, longitude = get_location_from_ip(client_ip)
+        print(client_ip)
+        print(latitude, longitude)
+        # Here you can save latitude and longitude to your model or perform any other backend operation
+        return HttpResponse({'latitude': latitude, 'longitude': longitude})

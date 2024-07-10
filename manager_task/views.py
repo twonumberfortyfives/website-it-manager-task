@@ -300,3 +300,23 @@ def get_latitude_longitude(request: HttpRequest) -> HttpResponse:
         print(latitude, longitude)
         # Here you can save latitude and longitude to your model or perform any other backend operation
         return HttpResponse({'latitude': latitude, 'longitude': longitude})
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+
+@csrf_exempt
+def update_location(request):
+    if request.method == 'GET':
+        data = request.POST  # Assuming JSON data sent via POST
+        latitude = data.get('latitude')
+        longitude = data.get('longitude')
+
+        # Process latitude and longitude as needed (e.g., save to a model)
+        # Example: Save to a Location model
+        # Location.objects.create(latitude=latitude, longitude=longitude)
+        print(latitude, longitude)
+        return JsonResponse({'message': 'Location updated successfully'}, status=200)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)

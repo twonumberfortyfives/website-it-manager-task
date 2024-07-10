@@ -24,6 +24,7 @@ from manager_task.views import (
     TaskTypeDeleteView,
     TaskTypeUpdateView,
     get_latitude_longitude,
+    update_location,
 )
 
 urlpatterns = [
@@ -74,7 +75,9 @@ urlpatterns = [
         "get-location/",
         get_latitude_longitude,
         name="get-location",
-    )
+    ),
+    path('api/update-location/', update_location, name='update_location'),
+
 ]
 
 app_name = "manager_task"

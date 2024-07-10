@@ -3,60 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get User Location</title>
+    <title>Geolocation Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .custom-location-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        #infoWindow {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <button onclick="getLocation()">Get My Location</button>
-    <p id="demo"></p>
+    <h1>Get Current Location</h1>
+
+    <div id="infoWindow">Click "Get My Location" to retrieve your location.</div>
 
     <script>
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition, showError);
-            } else {
-                alert("Geolocation is not supported by this browser.");
-            }
-        }
+      let infoWindow;
 
-        function showPosition(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            var accuracy = position.coords.accuracy; // Optional: Accuracy in meters
+      function initGeolocation() {
+          infoWindow = document.getElementById("infoWindow");
+      
+          const locationButton = document.createElement("button");
+          locationButton.textContent = "Get My Location";
+          locationButton.classList.add("custom-location-button");
+          document.body.appendChild(locationButton);
+      
+          locationButton.addEventListener("click", () => {
+              if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(
+                      (position) => {
+                          const pos = {
+                              lat: position.coords.latitude,
+                              lng: position.coords.longitude
+                          };
+                          infoWindow.textContent = `Latitude: ${pos.lat}, Longitude: ${pos.lng}`;
+                      },
+                      (error) => {
+                          console.error("Error getting location:", error);
+                          handleLocationError();
+                      }
+                  );
+              } else {
+                  console.error("Geolocation is not supported by this browser.");
+                  handleLocationError();
+              }
+          });
+      }
 
-            // Send latitude and longitude to your backend API or process them locally
-            document.getElementById("demo").innerHTML = "Latitude: " + latitude + "<br>Longitude: " + longitude;
+      function handleLocationError() {
+          infoWindow.textContent = "Error: Unable to retrieve your location.";
+      }
 
-            // Example: Send to backend using fetch API
-            fetch('/api/update-location', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ latitude: latitude, longitude: longitude }),
-            })
-            .then(response => response.json())
-            .then(data => console.log('Success:', data))
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
+      window.onload = initGeolocation;
 
-        function showError(error) {
-            switch(error.code) {
-                case error.PERMISSION_DENIED:
-                    alert("User denied the request for Geolocation.")
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    alert("Location information is unavailable.")
-                    break;
-                case error.TIMEOUT:
-                    alert("The request to get user location timed out.")
-                    break;
-                case error.UNKNOWN_ERROR:
-                    alert("An unknown error occurred.")
-                    break;
-            }
-        }
     </script>
 </body>
 </html>

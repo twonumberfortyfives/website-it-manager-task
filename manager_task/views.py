@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,7 +10,6 @@ from django.urls import reverse_lazy
 from django.views import generic
 import requests
 from ipware import get_client_ip
-
 
 from manager_task import forms
 from manager_task.forms import (
@@ -303,20 +304,29 @@ def get_latitude_longitude(request: HttpRequest) -> HttpResponse:
 
 
 from django.http import JsonResponse
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 @csrf_exempt
 def update_location(request):
-    if request.method == 'GET':
-        data = request.POST  # Assuming JSON data sent via POST
-        latitude = data.get('latitude')
-        longitude = data.get('longitude')
+    if request.method == 'POST':
+        if request.body:
+            try:
+                data = json.loads(request.body)  # Parse JSON payload
+                latitude = data.get('latitude')
+                longitude = data.get('longitude')
 
-        # Process latitude and longitude as needed (e.g., save to a model)
-        # Example: Save to a Location model
-        # Location.objects.create(latitude=latitude, longitude=longitude)
-        print(latitude, longitude)
-        return JsonResponse({'message': 'Location updated successfully'}, status=200)
+                # Process latitude and longitude as needed (e.g., save to a model)
+                print(latitude, longitude)
+
+                return render(request, "website/get_location.html", {"latitude": latitude, "longitude": longitude})
+            except json.JSONDecodeError:
+                return JsonResponse({'error': 'Invalid JSON'}, status=400)
+        else:
+            return JsonResponse({'error': 'Empty request body'}, status=400)
+    elif request.method == 'GET':
+        return render(request, "website/get_location.html", {})
     else:
         return JsonResponse({'error': 'Method not allowed'}, status=405)
